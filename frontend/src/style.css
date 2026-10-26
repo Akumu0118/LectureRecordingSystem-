@@ -1,0 +1,25 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+
+/* Shared form styles (used by App.vue and components) */
+.field-label {
+  display: block;
+  margin: 16px 0 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.field-hint { color: #6b7d99; font-size: 12px; margin: 6px 0 0; }
+
+input:not([type="file"]), textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d5dfed;
+  border-radius: 8px;
+  background: white;
+  font: inherit;
+  color: #172b4d;
+}
+input:focus, textarea:focus {
+  outline: 2px solid #bdd1ff;
+  border-color: #2463eb;
+}
