@@ -33,6 +33,19 @@ survive a page refresh.
 
 ## 1. Install the required software
 
+For guided automatic installation on Windows, see
+[INSTALL_DEPENDENCIES.txt](INSTALL_DEPENDENCIES.txt) and the included
+[PowerShell installer](install-dependencies.ps1). From a complete checkout:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install-dependencies.ps1 -InstallTools
+```
+
+This installs missing system prerequisites and the backend/frontend packages.
+PostgreSQL's installer remains interactive; database credentials and migrations
+are configured afterward. Existing `.env` files are preserved. For manual
+installation, continue below.
+
 The instructions below target **Windows PowerShell**, the project's tested
 development environment. Skip tools already installed at compatible versions.
 

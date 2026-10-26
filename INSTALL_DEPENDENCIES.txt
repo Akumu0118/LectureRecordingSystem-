@@ -1,0 +1,69 @@
+VoiceClean - automatic Windows dependency setup
+=============================================
+
+A .txt file cannot install software by itself. This file explains how to run
+the included install-dependencies.ps1 script. Use the complete project checkout
+with backend/, frontend/, and their dependency files present.
+
+1. Open PowerShell in the project folder. An internet connection is required.
+
+2. On a new laptop, run:
+
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install-dependencies.ps1 -InstallTools
+
+   The installer checks for Python, Node/npm, FFmpeg/FFprobe, and PostgreSQL.
+   It uses WinGet for missing prerequisites, creates backend/.venv if needed,
+   installs backend packages with pip, and installs frontend packages with npm ci.
+   WinGet may request package/source agreements or administrator approval.
+   PostgreSQL installation is interactive so you can choose your own password.
+
+3. If all system tools are already installed, install only project packages:
+
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install-dependencies.ps1
+
+4. To check prerequisites without installing anything:
+
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install-dependencies.ps1 -CheckOnly
+
+The execution-policy option applies to this PowerShell process only; it does
+not change the saved machine/user policy. Organization policies may still apply.
+Review the included script before running it. No administrator shell is needed
+for ordinary pip/npm installation; a system installer may ask for elevation.
+
+What is installed
+-----------------
+- Backend: backend/requirements-dev.txt, which includes requirements.txt
+  (FastAPI, Uvicorn, SQLAlchemy, Psycopg, Alembic, settings/upload tools,
+  pytest, and HTTPX).
+- Frontend: frontend/package-lock.json (Vue, Vite, plugin-vue and dependencies).
+- With -InstallTools: missing Python 3.13, Node.js LTS, FFmpeg/FFprobe and the
+  PostgreSQL 18 server through WinGet. Existing compatible tools are reused.
+
+Important behavior
+------------------
+- pip may install/update packages inside backend/.venv to satisfy requirements.
+- npm ci replaces frontend/node_modules using the existing lockfile.
+- Existing backend/.env and frontend/.env files are never overwritten.
+- Missing .env files are copied from .env.example; they still need configuration.
+- Nothing creates/deletes a database, sets/resets passwords, runs migrations,
+  deletes audio, commits Git changes, or starts application servers.
+- If new tools are not detected, restart PowerShell/VS Code and run again.
+- If WinGet is unavailable, use the installation links in README.md, then rerun.
+- This script installs dependencies; it does not prove browser/microphone
+  acceptance or database connectivity.
+
+After installation
+------------------
+Follow README.md steps 3 onward:
+1. Create/use your local LectureRecordingSystem PostgreSQL database.
+2. Edit backend/.env with YOUR database username/password/database name.
+   The copied template uses voiceclean as its example database name; change it
+   to LectureRecordingSystem if that is the database you created.
+3. From backend/, run:
+   .\.venv\Scripts\python.exe -m alembic upgrade head
+4. Run the backend and frontend in separate terminals as documented in README.md.
+
+For people who only want the Python .txt dependency installation:
+   backend\.venv\Scripts\python.exe -m pip install -r backend\requirements-dev.txt
+That command runs from the repository root after the virtualenv exists; it does
+not install frontend packages or external tools.
