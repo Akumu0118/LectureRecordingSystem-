@@ -1,0 +1,42 @@
+/* VoiceClean light surfaces, navy studio, and blue action hierarchy. */
+:root {
+  --vc-content-width: 1360px;
+  --vc-nav-height: 76px;
+  --vc-navy: #101e3b;
+  --vc-blue: #205fe5;
+  --vc-blue-hover: #2459cb;
+  --vc-background: #f3f5f9;
+  --vc-surface: #fff;
+  --vc-surface-raised: #fafbfd;
+  --vc-surface-inset: #edf2f8;
+  --vc-studio: #142442;
+  --vc-text: #172b4d;
+  --vc-muted: #5e708b;
+  --vc-border: #dce6f5;
+  --vc-soft: #f5f8ff;
+  --vc-danger: #b42332;
+  --vc-success: #18794e;
+  --vc-radius: 18px;
+  --vc-radius-small: 12px;
+  --vc-control-radius: 9px;
+  --vc-type-display: clamp(28px, 3vw, 40px);
+  --vc-type-heading: 21px;
+  --vc-type-body: 14px;
+  --vc-type-caption: 12px;
+  --vc-space-1: 4px;
+  --vc-space-2: 8px;
+  --vc-space-3: 12px;
+  --vc-space-4: 16px;
+  --vc-space-5: 24px;
+  --vc-space-6: 32px;
+  --vc-space-7: 40px;
+  --vc-shadow: 0 2px 6px #172b4d04, 0 8px 24px #172b4d04;
+  --vc-shadow-raised: 0 8px 24px #101e3b12;
+  color-scheme: light;
+  font-family: Inter,'Segoe UI',Arial,sans-serif;
+  color: var(--vc-text);
+  background: var(--vc-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}

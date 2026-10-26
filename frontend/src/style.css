@@ -1,0 +1,9 @@
+@import './styles/tokens.css';
+@import './styles/components.css';
+@import './styles/navigation.css';
+@import './styles/workspaces.css';
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+#app { min-height: 100svh; }
+button, input, textarea, select { font: inherit; }

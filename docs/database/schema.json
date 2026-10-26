@@ -1,0 +1,558 @@
+{
+  "database": "LectureRecordingSystem",
+  "migration": "f1f6a031e255",
+  "tables": {
+    "audio_files": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "recording_id",
+          "type": "UUID",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "file_role",
+          "type": "VARCHAR(16)",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "storage_path",
+          "type": "VARCHAR(1024)",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "original_filename",
+          "type": "VARCHAR(255)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "mime_type",
+          "type": "VARCHAR(127)",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "file_size_bytes",
+          "type": "BIGINT",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "duration_seconds",
+          "type": "NUMERIC(12, 3)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "sample_rate_hz",
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "channels",
+          "type": "INTEGER",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "now()"
+        }
+      ],
+      "primary_key": {
+        "constrained_columns": [
+          "id"
+        ],
+        "name": "audio_files_pkey",
+        "comment": null,
+        "dialect_options": {
+          "postgresql_include": []
+        }
+      },
+      "foreign_keys": [
+        {
+          "name": "fk_audio_files_recording_id",
+          "constrained_columns": [
+            "recording_id"
+          ],
+          "referred_schema": "public",
+          "referred_table": "recordings",
+          "referred_columns": [
+            "id"
+          ],
+          "options": {
+            "ondelete": "RESTRICT"
+          },
+          "comment": null
+        }
+      ],
+      "unique_constraints": [
+        {
+          "column_names": [
+            "storage_path"
+          ],
+          "name": "uq_audio_files_storage_path",
+          "comment": null,
+          "dialect_options": {
+            "postgresql_include": [],
+            "postgresql_nulls_not_distinct": false
+          }
+        }
+      ],
+      "check_constraints": [
+        {
+          "name": "ck_audio_files_channels_positive",
+          "sqltext": "channels > 0",
+          "comment": null
+        },
+        {
+          "name": "ck_audio_files_duration_nonnegative",
+          "sqltext": "duration_seconds >= 0::numeric AND duration_seconds <> 'NaN'::numeric",
+          "comment": null
+        },
+        {
+          "name": "ck_audio_files_file_role",
+          "sqltext": "file_role::text = ANY (ARRAY['reference'::character varying, 'original'::character varying, 'exported'::character varying, 'processed'::character varying]::text[])",
+          "comment": null
+        },
+        {
+          "name": "ck_audio_files_mime_type_nonempty",
+          "sqltext": "btrim(mime_type::text) <> ''::text",
+          "comment": null
+        },
+        {
+          "name": "ck_audio_files_role_recording",
+          "sqltext": "file_role::text = 'reference'::text AND recording_id IS NULL OR (file_role::text = ANY (ARRAY['original'::character varying, 'exported'::character varying, 'processed'::character varying]::text[])) AND recording_id IS NOT NULL",
+          "comment": null
+        },
+        {
+          "name": "ck_audio_files_sample_rate_positive",
+          "sqltext": "sample_rate_hz > 0",
+          "comment": null
+        },
+        {
+          "name": "ck_audio_files_size_nonnegative",
+          "sqltext": "file_size_bytes >= 0",
+          "comment": null
+        },
+        {
+          "name": "ck_audio_files_storage_path_nonempty",
+          "sqltext": "btrim(storage_path::text) <> ''::text",
+          "comment": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_audio_files_created_at",
+          "unique": false,
+          "column_names": [
+            "created_at"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        },
+        {
+          "name": "ix_audio_files_recording_role",
+          "unique": false,
+          "column_names": [
+            "recording_id",
+            "file_role"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        },
+        {
+          "name": "uq_audio_files_original_recording",
+          "unique": true,
+          "column_names": [
+            "recording_id"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_where": "((file_role)::text = 'original'::text)",
+            "postgresql_include": []
+          }
+        },
+        {
+          "name": "uq_audio_files_storage_path",
+          "unique": true,
+          "column_names": [
+            "storage_path"
+          ],
+          "duplicates_constraint": "uq_audio_files_storage_path",
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        }
+      ]
+    },
+    "lecturers": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(200)",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "department",
+          "type": "VARCHAR(200)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "now()"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "now()"
+        }
+      ],
+      "primary_key": {
+        "constrained_columns": [
+          "id"
+        ],
+        "name": "lecturers_pkey",
+        "comment": null,
+        "dialect_options": {
+          "postgresql_include": []
+        }
+      },
+      "foreign_keys": [],
+      "unique_constraints": [],
+      "check_constraints": [
+        {
+          "name": "ck_lecturers_name_nonempty",
+          "sqltext": "btrim(name::text) <> ''::text",
+          "comment": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_lecturers_created_at",
+          "unique": false,
+          "column_names": [
+            "created_at"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        },
+        {
+          "name": "ix_lecturers_name",
+          "unique": false,
+          "column_names": [
+            "name"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        }
+      ]
+    },
+    "recordings": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "lecturer_id",
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR(250)",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "description",
+          "type": "TEXT",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(16)",
+          "nullable": false,
+          "default": "'pending'::character varying"
+        },
+        {
+          "name": "recorded_at",
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "now()"
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "now()"
+        }
+      ],
+      "primary_key": {
+        "constrained_columns": [
+          "id"
+        ],
+        "name": "recordings_pkey",
+        "comment": null,
+        "dialect_options": {
+          "postgresql_include": []
+        }
+      },
+      "foreign_keys": [
+        {
+          "name": "fk_recordings_lecturer_id",
+          "constrained_columns": [
+            "lecturer_id"
+          ],
+          "referred_schema": "public",
+          "referred_table": "lecturers",
+          "referred_columns": [
+            "id"
+          ],
+          "options": {
+            "ondelete": "RESTRICT"
+          },
+          "comment": null
+        }
+      ],
+      "unique_constraints": [],
+      "check_constraints": [
+        {
+          "name": "ck_recordings_status",
+          "sqltext": "status::text = ANY (ARRAY['pending'::character varying, 'uploading'::character varying, 'ready'::character varying, 'failed'::character varying]::text[])",
+          "comment": null
+        },
+        {
+          "name": "ck_recordings_title_nonempty",
+          "sqltext": "btrim(title::text) <> ''::text",
+          "comment": null
+        }
+      ],
+      "indexes": [
+        {
+          "name": "ix_recordings_created_at",
+          "unique": false,
+          "column_names": [
+            "created_at"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        },
+        {
+          "name": "ix_recordings_lecturer_created_at",
+          "unique": false,
+          "column_names": [
+            "lecturer_id",
+            "created_at"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        },
+        {
+          "name": "ix_recordings_status",
+          "unique": false,
+          "column_names": [
+            "status"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        }
+      ]
+    },
+    "voice_samples": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "nullable": false,
+          "default": "gen_random_uuid()"
+        },
+        {
+          "name": "lecturer_id",
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "audio_file_id",
+          "type": "UUID",
+          "nullable": false,
+          "default": null
+        },
+        {
+          "name": "label",
+          "type": "VARCHAR(200)",
+          "nullable": true,
+          "default": null
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": false,
+          "default": "now()"
+        }
+      ],
+      "primary_key": {
+        "constrained_columns": [
+          "id"
+        ],
+        "name": "voice_samples_pkey",
+        "comment": null,
+        "dialect_options": {
+          "postgresql_include": []
+        }
+      },
+      "foreign_keys": [
+        {
+          "name": "fk_voice_samples_audio_file_id",
+          "constrained_columns": [
+            "audio_file_id"
+          ],
+          "referred_schema": "public",
+          "referred_table": "audio_files",
+          "referred_columns": [
+            "id"
+          ],
+          "options": {
+            "ondelete": "RESTRICT"
+          },
+          "comment": null
+        },
+        {
+          "name": "fk_voice_samples_lecturer_id",
+          "constrained_columns": [
+            "lecturer_id"
+          ],
+          "referred_schema": "public",
+          "referred_table": "lecturers",
+          "referred_columns": [
+            "id"
+          ],
+          "options": {
+            "ondelete": "RESTRICT"
+          },
+          "comment": null
+        }
+      ],
+      "unique_constraints": [
+        {
+          "column_names": [
+            "audio_file_id"
+          ],
+          "name": "uq_voice_samples_audio_file_id",
+          "comment": null,
+          "dialect_options": {
+            "postgresql_include": [],
+            "postgresql_nulls_not_distinct": false
+          }
+        }
+      ],
+      "check_constraints": [],
+      "indexes": [
+        {
+          "name": "ix_voice_samples_lecturer_created_at",
+          "unique": false,
+          "column_names": [
+            "lecturer_id",
+            "created_at"
+          ],
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        },
+        {
+          "name": "uq_voice_samples_audio_file_id",
+          "unique": true,
+          "column_names": [
+            "audio_file_id"
+          ],
+          "duplicates_constraint": "uq_voice_samples_audio_file_id",
+          "include_columns": [],
+          "dialect_options": {
+            "postgresql_include": []
+          }
+        }
+      ]
+    }
+  },
+  "triggers": [
+    {
+      "table_name": "audio_files",
+      "trigger_name": "ct_audio_files_voice_sample_owner",
+      "deferrable": true,
+      "initially_deferred": true,
+      "definition": "CREATE CONSTRAINT TRIGGER ct_audio_files_voice_sample_owner AFTER INSERT OR UPDATE ON public.audio_files DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION voiceclean_check_audio_owner()"
+    },
+    {
+      "table_name": "lecturers",
+      "trigger_name": "tr_lecturers_updated_at",
+      "deferrable": false,
+      "initially_deferred": false,
+      "definition": "CREATE TRIGGER tr_lecturers_updated_at BEFORE UPDATE ON public.lecturers FOR EACH ROW EXECUTE FUNCTION voiceclean_touch_updated_at()"
+    },
+    {
+      "table_name": "recordings",
+      "trigger_name": "tr_recordings_updated_at",
+      "deferrable": false,
+      "initially_deferred": false,
+      "definition": "CREATE TRIGGER tr_recordings_updated_at BEFORE UPDATE ON public.recordings FOR EACH ROW EXECUTE FUNCTION voiceclean_touch_updated_at()"
+    },
+    {
+      "table_name": "voice_samples",
+      "trigger_name": "ct_voice_samples_audio_owner",
+      "deferrable": true,
+      "initially_deferred": true,
+      "definition": "CREATE CONSTRAINT TRIGGER ct_voice_samples_audio_owner AFTER INSERT OR DELETE OR UPDATE ON public.voice_samples DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION voiceclean_check_audio_owner()"
+    }
+  ]
+}

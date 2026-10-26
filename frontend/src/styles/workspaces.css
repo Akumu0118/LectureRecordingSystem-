@@ -1,0 +1,936 @@
+/* Shared surface hierarchy. Feature layouts keep native controls and players. */
+.voiceclean h1 {
+  font-size: clamp(26px, 2.6vw, 34px);
+  letter-spacing: -.9px;
+}
+.voiceclean h2 {
+  font-size: var(--vc-type-heading);
+  letter-spacing: -.4px;
+}
+.voiceclean h3 {
+  font-size: 15px;
+}
+.voiceclean .topbar {
+  margin-bottom: 26px;
+}
+.voiceclean .topbar .heading-group > .muted {
+  max-width: 680px;
+}
+.voiceclean .card {
+  border-color: #e1e7ef;
+  padding: 28px;
+}
+.voiceclean .eyebrow {
+  font-size: 10px;
+  letter-spacing: .1em;
+}
+.voiceclean .btn {
+  min-height: 44px;
+  background: white;
+  box-shadow: 0 1px 2px #172b4d05;
+}
+.voiceclean .btn.primary {
+  background: var(--vc-blue);
+  color: white;
+  border-color: var(--vc-blue);
+}
+.voiceclean .btn.danger {
+  color: var(--vc-danger);
+  background: #fff3f4;
+  border-color: #f2cbd0;
+}
+.voiceclean .btn.text-danger {
+  color: var(--vc-danger);
+  box-shadow: none;
+  background: transparent;
+}
+.voiceclean .btn:hover:not(:disabled) {
+  background: #edf3fc;
+  border-color: #b3c7e4;
+}
+.voiceclean .btn.primary:hover:not(:disabled) {
+  background: var(--vc-blue-hover);
+  border-color: var(--vc-blue-hover);
+}
+.voiceclean .btn.danger:hover:not(:disabled), .voiceclean .btn.text-danger:hover:not(:disabled) {
+  background: #ffe9ec;
+  border-color: #e6a9b2;
+}
+.voiceclean .btn:disabled {
+  box-shadow: none;
+}
+.voiceclean input, .voiceclean select, .voiceclean textarea {
+  background-color: var(--vc-surface-raised);
+  border-color: #d9e1ed;
+}
+.voiceclean input:focus, .voiceclean select:focus, .voiceclean textarea:focus {
+  background-color: white;
+  border-color: var(--vc-blue);
+}
+.voiceclean .field-label {
+  font-size: 12px;
+  font-weight: 650;
+}
+.voiceclean .empty-state {
+  padding: 32px 24px;
+  border-style: dashed;
+  background: var(--vc-surface-raised);
+  border-radius: var(--vc-radius-small);
+}
+.voiceclean .feedback {
+  border-radius: var(--vc-radius-small);
+}
+.voiceclean .upload {
+  border: 1px dashed #bdcce0;
+  background: var(--vc-surface-raised);
+  border-radius: var(--vc-radius-small);
+}
+.voiceclean .upload input {
+  background: white;
+}
+.voiceclean input[type=file]::file-selector-button {
+  padding: 9px 12px;
+  margin-right: 12px;
+  border: 1px solid #d2ddeb;
+  border-radius: 7px;
+  background: white;
+  color: var(--vc-text);
+  cursor: pointer;
+}
+.voiceclean .pagination {
+  border-top: 1px solid #e6ebf2;
+  padding-top: 18px;
+}
+.voiceclean .preview-panel {
+  border-radius: var(--vc-radius-small);
+  background: var(--vc-surface-raised);
+}
+.voiceclean .app-topnav {
+  box-shadow: 0 3px 12px #101e3b0a;
+}
+/* Overview: welcome and metrics, context strip, recent library and workflow rail. */
+.voiceclean .overview-bento {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
+  gap: 22px;
+}
+.voiceclean .overview-bento > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.voiceclean .workspace-welcome {
+  background: var(--vc-navy);
+  color: white;
+  border-radius: var(--vc-radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+}
+.voiceclean .workspace-welcome .eyebrow {
+  color: #b0c6ee;
+}
+.voiceclean .workspace-welcome h2 {
+  font-size: var(--vc-type-display);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -1.3px;
+  margin: 14px 0;
+}
+.voiceclean .workspace-welcome p:not(.eyebrow) {
+  color: #bfcee5;
+  font-size: 13px;
+  max-width: 390px;
+}
+.voiceclean .welcome-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+}
+.voiceclean .welcome-footer > span {
+  flex: 1 1 180px;
+  font-size: 11px;
+  color: #c3d2ea;
+}
+.voiceclean .workspace-numbers {
+  background: white;
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius);
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+}
+.voiceclean .metric-cell {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--vc-text);
+  padding: 24px 28px;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px 18px;
+  min-width: 0;
+}
+.voiceclean .metric-cell + .metric-cell {
+  border-top: 1px solid #e7ecf4;
+}
+.voiceclean .metric-cell:hover {
+  background: var(--vc-soft);
+}
+.voiceclean .metric-cell .eyebrow {
+  grid-column: 1;
+  margin: 0;
+}
+.voiceclean .metric-cell > strong {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  font-size: 44px;
+  font-weight: 550;
+  line-height: 1.1;
+  letter-spacing: -1.6px;
+}
+.voiceclean .metric-link {
+  grid-column: 1;
+  font-size: 11px;
+  color: var(--vc-muted);
+}
+.voiceclean .metric-link > span {
+  color: var(--vc-blue);
+  margin-left: 6px;
+}
+.voiceclean .lecturer-context {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 26px;
+  background: white;
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius);
+}
+.voiceclean .context-monogram, .voiceclean .profile-initial {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--vc-surface-inset);
+  color: #34537d;
+  font-size: 20px;
+  font-weight: 600;
+}
+.voiceclean .context-details {
+  flex: 1;
+  min-width: 0;
+}
+.voiceclean .context-details h2 {
+  font-size: 17px;
+}
+.voiceclean .context-reference {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-inline: 24px;
+  border-left: 1px solid #e4eaf3;
+}
+.voiceclean .context-reference strong {
+  font-size: 26px;
+  font-weight: 550;
+}
+.voiceclean .context-reference span {
+  max-width: 85px;
+  font-size: 11px;
+}
+.voiceclean .recent-recordings {
+  border: 1px solid var(--vc-border);
+  border-radius: var(--vc-radius);
+  background: white;
+  padding: 28px;
+}
+.voiceclean .recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+}
+.voiceclean .recent-list li {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid #e7edf5;
+}
+.voiceclean .recent-list li:first-child {
+  border-top: 0;
+}
+.voiceclean .recent-title {
+  min-width: 0;
+}
+.voiceclean .recent-title h3 {
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+.voiceclean .recent-title .muted {
+  font-size: 11px;
+}
+.voiceclean .recent-audio-mark {
+  width: 36px;
+  height: 42px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: var(--vc-soft);
+  color: var(--vc-blue);
+  font-size: 22px;
+}
+.voiceclean .recent-duration {
+  font-variant-numeric: tabular-nums;
+  color: var(--vc-muted);
+  font-size: 11px;
+}
+.voiceclean .workflow-rail {
+  background: #eaf0f8;
+  border: 1px solid #dce5f1;
+  border-radius: var(--vc-radius);
+  padding: 28px;
+}
+.voiceclean .workflow-rail h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+.voiceclean .workflow-rail ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.voiceclean .workflow-rail li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  padding-bottom: 24px;
+}
+.voiceclean .workflow-rail li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 33px;
+  bottom: 5px;
+  width: 1px;
+  background: #c8d6e9;
+}
+.voiceclean .workflow-rail li > span {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #c4d3e8;
+  border-radius: 50%;
+  font-size: 10px;
+  color: #4d6689;
+}
+.voiceclean .workflow-rail .text-button {
+  text-align: left;
+  font-size: 13px;
+  padding: 0;
+}
+.voiceclean .workflow-rail .muted {
+  font-size: 11px;
+  margin-top: 5px;
+}
+.voiceclean .workflow-footnote {
+  border-top: 1px solid #cbd8e9;
+  padding-top: 16px;
+}
+/* People and references: a context column and a dedicated recorder/library. */
+.voiceclean .management-layout {
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr);
+  align-items: start;
+  gap: 24px;
+}
+.voiceclean .lecturer-management {
+  background: var(--vc-surface-raised);
+}
+.voiceclean .lecturer-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 0;
+  border-top: 1px solid #e0e7f0;
+}
+.voiceclean .lecturer-profile > div {
+  min-width: 0;
+}
+.voiceclean .lecturer-profile h3 {
+  font-size: 17px;
+}
+.voiceclean .lecturer-profile .muted {
+  font-size: 12px;
+  margin-top: 3px;
+}
+.voiceclean .profile-editor {
+  border: 1px solid #dce4ef;
+  background: white;
+  border-radius: var(--vc-radius-small);
+  padding: 16px;
+}
+.voiceclean .profile-editor summary {
+  cursor: pointer;
+  color: var(--vc-blue);
+  font-weight: 600;
+  font-size: 13px;
+  min-height: 28px;
+  padding-block: 4px;
+}
+.voiceclean .profile-editor .inset-form {
+  padding-top: 16px;
+  margin-top: 12px;
+}
+.voiceclean .profile-danger {
+  margin-top: 12px;
+}
+.voiceclean .reference-capture .context-label {
+  border-left: 0;
+  border-bottom: 1px solid #e6ecf4;
+  border-radius: 0;
+  background: transparent;
+  padding: 14px 0;
+}
+.voiceclean .reference-station {
+  padding: 20px;
+  border: 1px solid #d9e4f5;
+  border-radius: var(--vc-radius-small);
+  background: var(--vc-soft);
+  margin-top: 18px;
+}
+.voiceclean .reference-station-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+}
+.voiceclean .reference-station-heading .status-dot {
+  background: #7187a8;
+}
+.voiceclean .reference-station-heading > .muted {
+  margin-left: auto;
+  font-size: 11px;
+}
+.voiceclean .reference-station.is-recording {
+  border-color: #e7acb6;
+  background: #fff7f8;
+}
+.voiceclean .reference-station.is-recording .status-dot {
+  background: var(--vc-danger);
+}
+.voiceclean .reference-saved {
+  box-shadow: none;
+}
+.voiceclean .reference-item {
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 8px;
+  background: var(--vc-surface-raised);
+}
+.voiceclean .reference-item.selected {
+  border-color: #adc5f3;
+  background: #eff5ff;
+}
+/* Studio: details on the left, a strong capture surface on the right. */
+.voiceclean .studio-layout {
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.4fr);
+  gap: 24px;
+  align-items: stretch;
+}
+.voiceclean .lecture-information {
+  background: var(--vc-surface-raised);
+}
+.voiceclean .recorder-card {
+  border-top: 1px solid #e1e7ef;
+  display: flex;
+  flex-direction: column;
+}
+.voiceclean .studio-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 24px;
+  margin-top: 22px;
+  background: var(--vc-studio);
+  border: 1px solid #253a5f;
+  border-radius: 14px;
+  color: white;
+}
+.voiceclean .studio-stage .eyebrow {
+  text-align: center;
+  color: #b3c7e9;
+  overflow-wrap: anywhere;
+}
+.voiceclean .recorder-card .timer {
+  color: white;
+  font-size: clamp(40px, 5.4vw, 72px);
+  font-weight: 500;
+  margin: 24px 0 8px;
+  line-height: 1.15;
+  letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
+}
+.voiceclean .recorder-card .wave {
+  background: transparent;
+  height: 90px;
+  margin-block: 8px;
+}
+.voiceclean .recorder-card .wave span {
+  background: #628dcc;
+  opacity: .6;
+}
+.voiceclean .recorder-card.is-recording .wave span {
+  background: #8fb8ff;
+  opacity: 1;
+}
+.voiceclean .recorder-card.is-paused .wave span {
+  background: #d9b875;
+}
+.voiceclean .wave-caption {
+  text-align: center;
+  font-size: 10px;
+  color: #a9bddc;
+  margin-bottom: 20px;
+}
+.voiceclean .studio-stage > .muted {
+  color: #cfdaed;
+}
+.voiceclean .studio-stage .recorder-controls {
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.voiceclean .studio-stage .btn:not(.primary):not(.danger) {
+  background: #243959;
+  border-color: #567097;
+  color: white;
+}
+.voiceclean .studio-stage .btn:disabled {
+  opacity: .45;
+}
+.voiceclean .studio-stage .btn.danger {
+  background: #522d42;
+  border-color: #9d6578;
+  color: #ffe2e7;
+}
+.voiceclean .source-alternative {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.4fr);
+  gap: 32px;
+  align-items: center;
+  padding-block: 22px;
+}
+.voiceclean .source-alternative h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.voiceclean .source-alternative .upload {
+  margin: 0;
+  padding: 14px 16px;
+}
+.voiceclean .recording-output {
+  border-top: 3px solid #a9c6fa;
+}
+.voiceclean .recording-output > h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.voiceclean .recording-output .audio-player {
+  margin-top: 20px;
+}
+/* Library: compact, selected rows and contextual secondary actions. */
+.voiceclean .recording-list {
+  margin-top: 0;
+}
+/* Audio lab: source and processing, A/B comparison, compact delivery outputs. */
+.voiceclean .audio-lab .processing-grid {
+  gap: 0;
+  border: 1px solid #dce5f1;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.voiceclean .audio-lab .processing-selection {
+  background: var(--vc-surface-inset);
+  padding: 26px;
+}
+.voiceclean .audio-lab .processing-selection > .eyebrow {
+  margin-bottom: 18px;
+}
+.voiceclean .audio-lab .processing-options {
+  padding: 26px;
+  border-left: 1px solid #dce5f1;
+}
+.voiceclean .audio-lab .preset-description {
+  background: var(--vc-surface-raised);
+  border: 1px solid #e2e9f2;
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 10px;
+}
+.voiceclean .lab-source-context {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #cdd9e9;
+}
+.voiceclean .lab-source-context h3 {
+  font-size: 20px;
+  letter-spacing: -.3px;
+  margin-bottom: 7px;
+}
+.voiceclean .lab-source-context > p {
+  color: var(--vc-muted);
+  font-size: 12px;
+}
+.voiceclean .source-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+  font-size: 12px;
+}
+.voiceclean .source-facts span {
+  background: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
+.voiceclean .source-version-count {
+  margin-top: 12px;
+}
+.voiceclean .audio-comparison .version-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.voiceclean .audio-comparison .version-card {
+  padding: 24px;
+  border-radius: 14px;
+  background: var(--vc-surface-raised);
+}
+.voiceclean .audio-comparison .version-card:has(.badge.green) {
+  border-top: 3px solid #a7d2c0;
+}
+.voiceclean .version-card .section-heading {
+  margin-bottom: 14px;
+}
+.voiceclean .version-card .download-button {
+  margin-top: 16px;
+}
+.voiceclean .delivery-versions {
+  padding-top: 24px;
+  margin-top: 24px;
+  border-top: 1px solid #e1e8f2;
+}
+.voiceclean .delivery-version {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 1.2fr) auto;
+  gap: 12px 24px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.voiceclean .delivery-version .section-heading {
+  margin: 0;
+}
+.voiceclean .delivery-version .section-heading h3 {
+  font-size: 14px;
+}
+.voiceclean .delivery-version > .muted {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 11px;
+}
+.voiceclean .delivery-version > .audio-player {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  margin: 0;
+}
+.voiceclean .delivery-version .download-button {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  margin: 0;
+}
+.voiceclean .delivery-version > .feedback {
+  grid-column: 2 / -1;
+}
+@media (max-width: 1100px) {
+  .voiceclean .overview-bento {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+  .voiceclean .recent-list li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 12px;
+  }
+  .voiceclean .recent-audio-mark {
+    display: none;
+  }
+  .voiceclean .recent-duration {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .voiceclean .recent-list .btn {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+  .voiceclean .context-reference {
+    padding-inline: 16px;
+  }
+  .voiceclean .delivery-version {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .voiceclean .delivery-version > .audio-player {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+  .voiceclean .delivery-version .download-button {
+    grid-column: 2;
+  }
+}
+@media (max-width: 900px) {
+  .voiceclean .management-layout, .voiceclean .studio-layout, .voiceclean .source-alternative {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .voiceclean .source-alternative {
+    gap: 18px;
+  }
+  .voiceclean .studio-stage {
+    min-height: 340px;
+  }
+  .voiceclean .lecturer-context {
+    flex-wrap: wrap;
+  }
+  .voiceclean .context-details {
+    flex: 1 1 220px;
+  }
+  .voiceclean .context-reference {
+    margin-left: 68px;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+@media (max-width: 767px) {
+  .voiceclean .overview-bento {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .voiceclean .workspace-numbers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .voiceclean .metric-cell {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+  }
+  .voiceclean .metric-cell + .metric-cell {
+    border-top: 0;
+    border-left: 1px solid #e7ecf4;
+  }
+  .voiceclean .metric-cell > strong {
+    font-size: 36px;
+  }
+  .voiceclean .workflow-rail ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .voiceclean .workflow-rail li::after {
+    display: none;
+  }
+  .voiceclean .workflow-rail li {
+    padding-bottom: 16px;
+  }
+  .voiceclean .audio-lab .processing-grid, .voiceclean .audio-comparison .version-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .voiceclean .audio-lab .processing-options {
+    border-left: 0;
+    border-top: 1px solid #dce5f1;
+  }
+  .voiceclean .recent-list li {
+    grid-template-columns: 38px minmax(0, 1fr) auto auto;
+  }
+  .voiceclean .recent-audio-mark {
+    display: grid;
+  }
+  .voiceclean .recent-duration {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .voiceclean .recent-list .btn {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+@media (max-width: 600px) {
+  .voiceclean .card, .voiceclean .recent-recordings, .voiceclean .workflow-rail {
+    padding: 20px;
+  }
+  .voiceclean .workspace-welcome {
+    padding: 26px 22px;
+  }
+  .voiceclean .workspace-welcome h2 {
+    font-size: 32px;
+  }
+  .voiceclean .lecturer-context {
+    padding: 20px;
+    gap: 14px;
+  }
+  .voiceclean .context-details {
+    flex: 1 1 150px;
+  }
+  .voiceclean .context-reference {
+    margin-left: 0;
+  }
+  .voiceclean .context-monogram {
+    width: 40px;
+    height: 44px;
+  }
+  .voiceclean .lecturer-context > .btn {
+    margin-left: auto;
+  }
+  .voiceclean .recent-list li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .voiceclean .recent-audio-mark {
+    display: none;
+  }
+  .voiceclean .recent-duration {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .voiceclean .recent-list .btn {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+  .voiceclean .workflow-rail ol {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .voiceclean .studio-stage {
+    padding: 24px 12px;
+    min-height: 360px;
+  }
+  .voiceclean .recorder-card .timer {
+    font-size: clamp(36px, 10vw, 52px);
+    letter-spacing: -1.5px;
+  }
+  .voiceclean .studio-stage .recorder-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .voiceclean .studio-stage .recorder-controls .btn {
+    width: 100%;
+  }
+  .voiceclean .wave-caption {
+    font-size: 9px;
+  }
+  .voiceclean .reference-station {
+    padding: 16px;
+  }
+  .voiceclean .reference-station-heading > .muted {
+    margin-left: 0;
+  }
+  .voiceclean .audio-lab .processing-selection, .voiceclean .audio-lab .processing-options {
+    padding: 20px;
+  }
+  .voiceclean .audio-comparison .version-card {
+    padding: 18px;
+  }
+  .voiceclean .delivery-version {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .voiceclean .delivery-version .section-heading {
+    justify-content: space-between;
+  }
+}
+
+
+/* Recording History: one toolbar, a quiet result count, and aligned media rows. */
+.voiceclean .main:has(> .history-header) { max-width: 1240px; }
+.voiceclean .history-header { align-items: center; margin-bottom: 24px; }
+.voiceclean .history-header h1 { width: fit-content; max-width: 100%; font-size: clamp(25px, 2.5vw, 30px); }
+.voiceclean .history-header h1:focus:not(:focus-visible) { outline: none; }
+.voiceclean .history-header .heading-group > .muted { margin-top: 6px; }
+.voiceclean .history-header .header-status { flex-direction: row; align-items: center; flex-wrap: wrap; }
+.voiceclean .audio-library { padding: 24px; border-radius: 14px; box-shadow: none; }
+.voiceclean .audio-library .library-filters { display: grid; grid-template-columns: minmax(0, 1fr) minmax(130px, .45fr) minmax(120px, .4fr) auto; gap: 12px; align-items: center; padding: 0; margin: 0 0 24px; border: 0; background: transparent; }
+.voiceclean .audio-library .library-filters .field { margin: 0; min-width: 0; }
+.voiceclean .audio-library .library-filters input, .voiceclean .audio-library .library-filters select { min-height: 44px; background: white; font-size: 13px; }
+.voiceclean .audio-library .library-filters .btn { margin: 0; }
+.voiceclean .library-results { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; }
+.voiceclean .library-results h2 { font-size: 13px; font-weight: 600; letter-spacing: 0; }
+.voiceclean .library-results > .muted { font-size: 11px; }
+.voiceclean .library-columns, .voiceclean .audio-library .recording-item { display: grid; grid-template-columns: minmax(0, 1fr) 160px 65px 70px 190px; gap: 18px; align-items: center; }
+.voiceclean .library-columns { color: var(--vc-muted); font-size: 11px; padding: 12px 0; border-bottom: 1px solid #e5ebf2; }
+.voiceclean .column-actions { text-align: right; }
+.voiceclean .audio-library .recording-list { padding: 0; margin: 0; list-style: none; }
+.voiceclean .audio-library .recording-item { padding: 20px 0; border-bottom: 1px solid #edf0f5; border-radius: 0; }
+.voiceclean .audio-library .recording-item:last-child { border-bottom: 0; }
+.voiceclean .audio-library .recording-item.is-selected { background: #f7faff; box-shadow: none; }
+.voiceclean .audio-library .recording-item:focus-within { background: #fafcff; }
+.voiceclean .audio-library .recording-summary { display: block; min-width: 0; }
+.voiceclean .audio-library .recording-summary h3 { font-size: 14px; font-weight: 600; letter-spacing: -.1px; overflow-wrap: anywhere; }
+.voiceclean .audio-library .recording-owner { font-size: 12px; margin-top: 4px; }
+.voiceclean .library-date, .voiceclean .library-duration { color: var(--vc-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.voiceclean .library-status { justify-self: start; font-size: 10px; padding: 4px 8px; }
+.voiceclean .audio-library .recording-actions { display: flex; flex-direction: row; align-items: center; justify-content: flex-end; gap: 12px; min-width: 0; }
+.voiceclean .audio-library .recording-actions > .actions { margin: 0; width: auto; }
+.voiceclean .audio-library .library-play { min-width: 60px; color: var(--vc-blue); font-size: 12px; background: white; }
+.voiceclean .audio-library .recording-more { position: relative; flex: none; width: auto; }
+.voiceclean .audio-library .recording-more[open] { padding: 0; border: 0; background: transparent; }
+.voiceclean .audio-library .recording-more summary { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 4px; color: var(--vc-muted); cursor: pointer; font-size: 11px; list-style: none; text-align: left; white-space: nowrap; }
+.voiceclean .audio-library .recording-more summary::-webkit-details-marker { display: none; }
+.voiceclean .audio-library .recording-more summary::after { content: '\2304'; margin-left: 6px; }
+.voiceclean .audio-library .secondary-actions { display: flex; flex-direction: column; align-items: stretch; position: absolute; z-index: 10; top: calc(100% + 4px); right: 0; width: 210px; max-width: calc(100vw - 56px); margin: 0; gap: 2px; padding: 6px; background: white; border: 1px solid #dfe6f0; border-radius: 10px; box-shadow: var(--vc-shadow-raised); }
+.voiceclean .audio-library .secondary-actions .btn { justify-content: flex-start; border: 0; box-shadow: none; background: transparent; min-height: 40px; padding: 9px 12px; font-size: 12px; }
+.voiceclean .audio-library .secondary-actions .btn:hover:not(:disabled) { background: var(--vc-soft); }
+.voiceclean .audio-library .secondary-actions .text-danger { border-top: 1px solid #edf0f5; border-radius: 0 0 6px 6px; margin-top: 4px; }
+.voiceclean .audio-library .recording-item > .inset-form, .voiceclean .audio-library .recording-item > .confirmation { grid-column: 1 / -1; margin-top: 0; }
+.voiceclean .audio-library .opened-label { display: block; margin-top: 6px; font-size: 10px; color: var(--vc-blue); }
+.voiceclean .audio-library .pagination { border-top: 1px solid #edf0f5; margin-top: 16px; padding-top: 16px; }
+@media (max-width: 1050px) {
+  .voiceclean .library-columns, .voiceclean .audio-library .recording-item { grid-template-columns: minmax(0, 1fr) 140px 55px 60px 170px; gap: 12px; }
+  .voiceclean .audio-library .recording-actions { gap: 8px; }
+}
+@media (max-width: 850px) {
+  .voiceclean .audio-library .library-filters { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
+  .voiceclean .audio-library .search-field { grid-column: 1 / -1; }
+  .voiceclean .library-columns { display: none; }
+  .voiceclean .audio-library .recording-item { grid-template-columns: minmax(0, 1fr) 70px 180px; gap: 10px 16px; }
+  .voiceclean .audio-library .recording-summary { grid-column: 1 / 3; }
+  .voiceclean .audio-library .recording-actions { grid-column: 3; grid-row: 1 / 3; }
+  .voiceclean .library-date { grid-column: 1; grid-row: 2; }
+  .voiceclean .library-duration { grid-column: 2; grid-row: 2; }
+  .voiceclean .library-status { grid-column: 1; grid-row: 3; }
+}
+@media (max-width: 600px) {
+  .voiceclean .history-header { gap: 16px; }
+  .voiceclean .history-header .heading-group { flex-basis: 100%; }
+  .voiceclean .audio-library { padding: 18px; }
+  .voiceclean .audio-library .library-filters { gap: 10px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .voiceclean .audio-library .library-filters > .btn { grid-column: 1 / -1; }
+  .voiceclean .audio-library .recording-item { grid-template-columns: minmax(0, 1fr) auto; gap: 10px 12px; }
+  .voiceclean .audio-library .recording-summary { grid-column: 1; }
+  .voiceclean .library-status { grid-column: 2; grid-row: 1; justify-self: end; }
+  .voiceclean .library-date { grid-column: 1; grid-row: 2; }
+  .voiceclean .library-duration { grid-column: 2; grid-row: 2; justify-self: end; }
+  .voiceclean .audio-library .recording-actions { grid-column: 1 / -1; grid-row: 3; justify-content: flex-start; }
+  .voiceclean .audio-library .recording-more .secondary-actions { left: 0; right: auto; }
+}
